@@ -1,0 +1,5 @@
+<h1>Edit Local session</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.local_session_path(@conn, :update, @local_session)) %>
+
+<span><%= link "Back", to: Routes.local_session_path(@conn, :index) %></span>

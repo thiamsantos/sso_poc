@@ -1,0 +1,5 @@
+<h1>Edit Global session</h1>
+
+<%= render "form.html", Map.put(assigns, :action, Routes.global_session_path(@conn, :update, @global_session)) %>
+
+<span><%= link "Back", to: Routes.global_session_path(@conn, :index) %></span>

@@ -1,0 +1,13 @@
+<h1>Show Local session</h1>
+
+<ul>
+
+  <li>
+    <strong>Revoked at:</strong>
+    <%= @local_session.revoked_at %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.local_session_path(@conn, :edit, @local_session) %></span>
+<span><%= link "Back", to: Routes.local_session_path(@conn, :index) %></span>

@@ -1,0 +1,35 @@
+defmodule ConsumerWeb.PageController do
+  use ConsumerWeb, :controller
+
+  @locker_url "http://localhost:4000/login"
+  @locker_session_validation "http://localhost:4000/api/session/validate"
+
+  def index(conn, _params) do
+    session_id = Map.get(conn.cookies, "_locker_session_id")
+
+    case validate_session(session_id) do
+      {:ok, %{"data" => %{"user_id" => user_id}}} ->
+        render(conn, "index.html", user_id: user_id)
+
+      {:error, :invalid_session} ->
+        next = URI.to_string(%URI{scheme: to_string(conn.scheme), host: conn.host, port: conn.port, path: conn.request_path, query: conn.query_string})
+        query = URI.encode_query(%{"next_url" => next})
+    
+        redirect_url = @locker_url
+        |> URI.parse()
+        |> Map.put(:query, query)
+        |> URI.to_string()
+    
+        redirect(conn, external: redirect_url)
+    end
+  end
+
+  def validate_session(session_id) do
+    body = Jason.encode!(%{session_id: session_id})
+
+    case HTTPoison.post(@locker_session_validation, body, [{"Content-Type", "application/json"}]) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} -> {:ok, Jason.decode!(body)}
+      _ -> {:error, :invalid_session}
+    end
+  end
+end

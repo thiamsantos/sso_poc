@@ -1,0 +1,13 @@
+<h1>Show Global session</h1>
+
+<ul>
+
+  <li>
+    <strong>Revoked at:</strong>
+    <%= @global_session.revoked_at %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.global_session_path(@conn, :edit, @global_session) %></span>
+<span><%= link "Back", to: Routes.global_session_path(@conn, :index) %></span>

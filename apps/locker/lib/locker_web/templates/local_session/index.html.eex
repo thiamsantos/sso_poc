@@ -1,0 +1,26 @@
+<h1>Listing Local sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Revoked at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for local_session <- @local_sessions do %>
+    <tr>
+      <td><%= local_session.revoked_at %></td>
+
+      <td>
+        <%= link "Show", to: Routes.local_session_path(@conn, :show, local_session) %>
+        <%= link "Edit", to: Routes.local_session_path(@conn, :edit, local_session) %>
+        <%= link "Delete", to: Routes.local_session_path(@conn, :delete, local_session), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Local session", to: Routes.local_session_path(@conn, :new) %></span>

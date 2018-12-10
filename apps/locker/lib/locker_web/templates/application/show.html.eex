@@ -1,0 +1,18 @@
+<h1>Show Application</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @application.name %>
+  </li>
+
+  <li>
+    <strong>Domain:</strong>
+    <%= @application.domain %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.application_path(@conn, :edit, @application) %></span>
+<span><%= link "Back", to: Routes.application_path(@conn, :index) %></span>

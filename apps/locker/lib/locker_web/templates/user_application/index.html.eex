@@ -1,0 +1,28 @@
+<h1>Listing User applications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>User</th>
+      <th>Application</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for user_application <- @user_applications do %>
+    <tr>
+      <td><%= user_application.user_id %></td>
+      <td><%= user_application.application_id %></td>
+
+      <td>
+        <%= link "Show", to: Routes.user_application_path(@conn, :show, user_application) %>
+        <%= link "Edit", to: Routes.user_application_path(@conn, :edit, user_application) %>
+        <%= link "Delete", to: Routes.user_application_path(@conn, :delete, user_application), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New User applications", to: Routes.user_application_path(@conn, :new) %></span>

@@ -1,0 +1,28 @@
+<h1>Listing Applications</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Domain</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for application <- @applications do %>
+    <tr>
+      <td><%= application.name %></td>
+      <td><%= application.domain %></td>
+
+      <td>
+        <%= link "Show", to: Routes.application_path(@conn, :show, application) %>
+        <%= link "Edit", to: Routes.application_path(@conn, :edit, application) %>
+        <%= link "Delete", to: Routes.application_path(@conn, :delete, application), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Application", to: Routes.application_path(@conn, :new) %></span>

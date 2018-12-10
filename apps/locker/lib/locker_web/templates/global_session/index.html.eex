@@ -1,0 +1,26 @@
+<h1>Listing Global sessions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Revoked at</th>
+
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+<%= for global_session <- @global_sessions do %>
+    <tr>
+      <td><%= global_session.revoked_at %></td>
+
+      <td>
+        <%= link "Show", to: Routes.global_session_path(@conn, :show, global_session) %>
+        <%= link "Edit", to: Routes.global_session_path(@conn, :edit, global_session) %>
+        <%= link "Delete", to: Routes.global_session_path(@conn, :delete, global_session), method: :delete, data: [confirm: "Are you sure?"] %>
+      </td>
+    </tr>
+<% end %>
+  </tbody>
+</table>
+
+<span><%= link "New Global session", to: Routes.global_session_path(@conn, :new) %></span>
