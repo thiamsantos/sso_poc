@@ -17,6 +17,7 @@ defmodule ConsumerWeb.Router do
     pipe_through :browser
 
     get "/user", PageController, :index
+    get "/logout", PageController, :logout
   end
 
   # Other scopes may use custom stacks.

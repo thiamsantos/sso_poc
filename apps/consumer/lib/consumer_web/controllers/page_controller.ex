@@ -3,8 +3,10 @@ defmodule ConsumerWeb.PageController do
 
   @locker_url "http://localhost:4000/login"
   @locker_session_validation "http://localhost:4000/api/session/validate"
+  @locker_session_logout "http://localhost:4000/session/logout"
 
   def index(conn, _params) do
+    conn.resp_headers |> IO.inspect()
     session_id = Map.get(conn.cookies, "_locker_session_id")
 
     case validate_session(session_id) do
@@ -24,7 +26,20 @@ defmodule ConsumerWeb.PageController do
     end
   end
 
-  def validate_session(session_id) do
+
+  def logout(conn, _params) do
+    next = URI.to_string(%URI{scheme: to_string(conn.scheme), host: conn.host, port: conn.port, path: "/user"})
+    query = URI.encode_query(%{"next_url" => next})
+
+    redirect_url = @locker_session_logout
+    |> URI.parse()
+    |> Map.put(:query, query)
+    |> URI.to_string()
+
+    redirect(conn, external: redirect_url)
+  end
+
+  defp validate_session(session_id) do
     body = Jason.encode!(%{session_id: session_id})
 
     case HTTPoison.post(@locker_session_validation, body, [{"Content-Type", "application/json"}]) do

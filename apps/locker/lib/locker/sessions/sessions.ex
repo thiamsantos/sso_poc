@@ -56,6 +56,13 @@ defmodule Locker.Sessions do
     |> Repo.insert()
   end
 
+  def revoke_global_session(session_id) do
+    date = DateTime.utc_now()
+    query = from(s in GlobalSession, where: s.id == ^session_id)
+    
+    Repo.update_all(query, set: [revoked_at: date])
+  end
+
   @doc """
   Updates a global_session.
 

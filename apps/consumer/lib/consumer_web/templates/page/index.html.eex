@@ -1,3 +1,5 @@
 <section class="phx-hero">
   <p>Logged in with user <%= @user_id %></p>
 </section>
+
+<a href="/logout">Logout</a>

@@ -5,6 +5,7 @@ defmodule LockerWeb.LoginController do
   alias Locker.Accounts.{Credentials, User}
 
   def index(conn, _params) do
+    IO.inspect(conn.resp_headers)
     changeset = Credentials.changeset(%Credentials{}, %{next_url: conn.query_params["next_url"]})
 
     render(conn, "index.html", changeset: changeset)

@@ -23,6 +23,8 @@ defmodule LockerWeb.Router do
     resources "/local_sessions", LocalSessionController
     resources "/applications", ApplicationController
     resources "/user_applications", UserApplicationController
+    
+    get "/session/logout", API.SessionController, :logout
   end
 
   scope "/api" do
